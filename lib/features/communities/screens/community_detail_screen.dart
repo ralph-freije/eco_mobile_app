@@ -158,6 +158,7 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     if (_community == null && _error == null) {
       return const LoadingState(label: 'Loading community...');
     }
@@ -351,7 +352,7 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen> {
                                     decoration: BoxDecoration(
                                       color: mine
                                           ? AppColors.green
-                                          : AppColors.mint,
+                                          : colors.surfaceContainerHigh,
                                       borderRadius: BorderRadius.only(
                                         topLeft: const Radius.circular(17),
                                         topRight: const Radius.circular(17),
@@ -380,7 +381,7 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen> {
                                           style: TextStyle(
                                             color: mine
                                                 ? Colors.white
-                                                : AppColors.text,
+                                                : colors.onSurface,
                                             height: 1.35,
                                           ),
                                         ),
@@ -395,7 +396,7 @@ class _CommunityDetailScreenState extends State<CommunityDetailScreen> {
                                               style: TextStyle(
                                                 color: mine
                                                     ? Colors.white70
-                                                    : AppColors.muted,
+                                                    : colors.onSurfaceVariant,
                                                 fontSize: 8,
                                               ),
                                             ),

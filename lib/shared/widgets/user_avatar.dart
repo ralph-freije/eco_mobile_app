@@ -19,6 +19,7 @@ class UserAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     final initials = name
         .trim()
         .split(RegExp(r'\s+'))
@@ -30,12 +31,12 @@ class UserAvatar extends StatelessWidget {
     final fallback = Container(
       width: radius * 2,
       height: radius * 2,
-      color: AppColors.mint,
+      color: colors.primaryContainer,
       alignment: Alignment.center,
       child: Text(
         initials.isEmpty ? 'E' : initials,
         style: TextStyle(
-          color: AppColors.greenDark,
+          color: colors.onPrimaryContainer,
           fontWeight: FontWeight.w800,
           fontSize: radius * 0.62,
         ),
@@ -66,7 +67,7 @@ class UserAvatar extends StatelessWidget {
               decoration: BoxDecoration(
                 color: isActive! ? AppColors.green : const Color(0xFF9AA8A7),
                 shape: BoxShape.circle,
-                border: Border.all(color: Colors.white, width: 2),
+                border: Border.all(color: colors.surface, width: 2),
               ),
             ),
           ),

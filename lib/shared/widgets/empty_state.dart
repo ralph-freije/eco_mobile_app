@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/theme/app_theme.dart';
-
 class EmptyState extends StatelessWidget {
   const EmptyState({
     required this.icon,
@@ -16,19 +14,20 @@ class EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 44, horizontal: 24),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: AppColors.green, size: 42),
+          Icon(icon, color: colors.primary, size: 42),
           const SizedBox(height: 12),
           Text(title, style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 6),
           Text(
             message,
             textAlign: TextAlign.center,
-            style: const TextStyle(color: AppColors.muted, height: 1.4),
+            style: TextStyle(color: colors.onSurfaceVariant, height: 1.4),
           ),
         ],
       ),

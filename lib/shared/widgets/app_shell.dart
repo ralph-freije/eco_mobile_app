@@ -8,8 +8,10 @@ import 'package:provider/provider.dart';
 import '../../core/constants/api_constants.dart';
 import '../../core/network/api_client.dart';
 import '../../core/state/auth_controller.dart';
+import '../../core/state/theme_controller.dart';
 import '../../core/theme/app_theme.dart';
 import 'ecotrack_logo.dart';
+import 'theme_mode_selector.dart';
 
 class AppShell extends StatefulWidget {
   const AppShell({
@@ -147,6 +149,8 @@ class _AppShellState extends State<AppShell> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       extendBody: false,
       appBar: AppBar(
@@ -154,6 +158,14 @@ class _AppShellState extends State<AppShell> {
             ? const EcoTrackLogo(compact: true)
             : Text(_title),
         actions: [
+          IconButton(
+            tooltip: isDark ? 'Use light theme' : 'Use dark theme',
+            onPressed: () =>
+                context.read<ThemeController>().toggleBrightness(context),
+            icon: Icon(
+              isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
+            ),
+          ),
           _NotificationButton(
             count: _unreadCount,
             onPressed: () => context.go('/notifications'),
@@ -174,12 +186,14 @@ class _AppShellState extends State<AppShell> {
             filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.88),
+                color: colors.surface.withValues(alpha: isDark ? 0.9 : 0.88),
                 borderRadius: BorderRadius.circular(26),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.8)),
-                boxShadow: const [
+                border: Border.all(
+                  color: colors.outlineVariant.withValues(alpha: 0.8),
+                ),
+                boxShadow: [
                   BoxShadow(
-                    color: Color(0x24092A2F),
+                    color: Colors.black.withValues(alpha: isDark ? 0.34 : 0.14),
                     blurRadius: 28,
                     offset: Offset(0, 10),
                   ),
@@ -262,6 +276,7 @@ class _AppMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     final items = [
       const _MenuItem('/history', 'History', Icons.history_rounded),
       const _MenuItem('/communities', 'Communities', Icons.groups_rounded),
@@ -276,33 +291,34 @@ class _AppMenu extends StatelessWidget {
     ];
 
     return SafeArea(
-      child: Container(
-        margin: const EdgeInsets.all(12),
-        padding: const EdgeInsets.fromLTRB(20, 14, 20, 20),
-        decoration: BoxDecoration(
-          color: AppColors.background,
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
+      child: SingleChildScrollView(
+        child: Container(
+          margin: const EdgeInsets.all(12),
+          padding: const EdgeInsets.fromLTRB(20, 14, 20, 20),
+          decoration: BoxDecoration(
+            color: colors.surface,
+            borderRadius: BorderRadius.circular(30),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
             Container(
               width: 42,
               height: 4,
               decoration: BoxDecoration(
-                color: AppColors.border,
+                color: colors.outlineVariant,
                 borderRadius: BorderRadius.circular(4),
               ),
             ),
             const SizedBox(height: 18),
-            const Row(
+            Row(
               children: [
-                EcoTrackLogo(compact: true),
-                Spacer(),
+                const EcoTrackLogo(compact: true),
+                const Spacer(),
                 Text(
                   'Explore',
                   style: TextStyle(
-                    color: AppColors.muted,
+                    color: colors.onSurfaceVariant,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -323,7 +339,9 @@ class _AppMenu extends StatelessWidget {
                 final item = items[index];
                 final selected = currentLocation == item.route;
                 return Material(
-                  color: selected ? AppColors.mint : Colors.white,
+                  color: selected
+                      ? colors.primaryContainer
+                      : colors.surfaceContainer,
                   borderRadius: BorderRadius.circular(20),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(20),
@@ -339,7 +357,9 @@ class _AppMenu extends StatelessWidget {
                             label: Text('${item.badge}'),
                             child: Icon(
                               item.icon,
-                              color: AppColors.greenDark,
+                              color: selected
+                                  ? colors.onPrimaryContainer
+                                  : colors.primary,
                             ),
                           ),
                           const Spacer(),
@@ -354,6 +374,19 @@ class _AppMenu extends StatelessWidget {
                 );
               },
             ),
+            const SizedBox(height: 16),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Appearance',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ),
+            const SizedBox(height: 10),
+            const SizedBox(
+              width: double.infinity,
+              child: ThemeModeSelector(),
+            ),
             const SizedBox(height: 14),
             SizedBox(
               width: double.infinity,
@@ -367,7 +400,8 @@ class _AppMenu extends StatelessWidget {
                 label: const Text('Sign out'),
               ),
             ),
-          ],
+            ],
+          ),
         ),
       ),
     );

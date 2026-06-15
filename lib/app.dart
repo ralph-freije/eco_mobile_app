@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import 'core/state/auth_controller.dart';
+import 'core/state/theme_controller.dart';
 import 'core/theme/app_theme.dart';
 import 'features/activity/screens/activity_screen.dart';
 import 'features/auth/screens/forgot_password_screen.dart';
@@ -21,9 +22,14 @@ import 'features/track/screens/track_screen.dart';
 import 'shared/widgets/app_shell.dart';
 
 class EcoTrackApp extends StatefulWidget {
-  const EcoTrackApp({required this.authController, super.key});
+  const EcoTrackApp({
+    required this.authController,
+    required this.themeController,
+    super.key,
+  });
 
   final AuthController authController;
+  final ThemeController themeController;
 
   @override
   State<EcoTrackApp> createState() => _EcoTrackAppState();
@@ -90,13 +96,20 @@ class _EcoTrackAppState extends State<EcoTrackApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: widget.authController,
-      child: MaterialApp.router(
-        title: 'EcoTrack',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.light,
-        routerConfig: _router,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: widget.authController),
+        ChangeNotifierProvider.value(value: widget.themeController),
+      ],
+      child: Consumer<ThemeController>(
+        builder: (context, themeController, child) => MaterialApp.router(
+          title: 'EcoTrack',
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.light,
+          darkTheme: AppTheme.dark,
+          themeMode: themeController.themeMode,
+          routerConfig: _router,
+        ),
       ),
     );
   }

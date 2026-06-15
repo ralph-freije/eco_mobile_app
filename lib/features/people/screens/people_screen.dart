@@ -79,9 +79,9 @@ class _PeopleScreenState extends State<PeopleScreen> {
         maxChildSize: 0.92,
         expand: false,
         builder: (context, scrollController) => Container(
-          decoration: const BoxDecoration(
-            color: AppColors.background,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
           ),
           child: FutureBuilder<dynamic>(
             future: ApiClient.instance.get(ApiConstants.socialProfile(id)),
@@ -103,7 +103,7 @@ class _PeopleScreenState extends State<PeopleScreen> {
                         width: 42,
                         height: 4,
                         decoration: BoxDecoration(
-                          color: AppColors.border,
+                          color: Theme.of(context).colorScheme.outlineVariant,
                           borderRadius: BorderRadius.circular(4),
                         ),
                       ),
@@ -155,7 +155,7 @@ class _PeopleScreenState extends State<PeopleScreen> {
                       width: 42,
                       height: 4,
                       decoration: BoxDecoration(
-                        color: AppColors.border,
+                        color: Theme.of(context).colorScheme.outlineVariant,
                         borderRadius: BorderRadius.circular(4),
                       ),
                     ),
@@ -397,19 +397,29 @@ class _ProfileStat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: AppColors.mint,
+        color: colors.primaryContainer,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
         children: [
-          Text(value, style: const TextStyle(fontWeight: FontWeight.w800)),
+          Text(
+            value,
+            style: TextStyle(
+              color: colors.onPrimaryContainer,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
           const SizedBox(height: 3),
           Text(
             label,
-            style: const TextStyle(color: AppColors.muted, fontSize: 11),
+            style: TextStyle(
+              color: colors.onPrimaryContainer.withValues(alpha: 0.75),
+              fontSize: 11,
+            ),
           ),
         ],
       ),

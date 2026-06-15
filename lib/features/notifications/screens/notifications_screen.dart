@@ -166,12 +166,13 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             const EmptyState(icon: Icons.notifications_none_rounded, title: 'You are all caught up', message: 'Goal, social, and community updates will appear here.')
           else
             ..._items!.map((item) {
+              final colors = Theme.of(context).colorScheme;
               final actor = item['actor'] is Map ? Map<String, dynamic>.from(item['actor'] as Map) : null;
               final isRead = item['is_read'] == true;
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: RoundedCard(
-                  color: isRead ? Colors.white : AppColors.mint,
+                  color: isRead ? colors.surface : colors.primaryContainer,
                   padding: const EdgeInsets.all(15),
                   onTap: () => _markRead(item),
                   child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -183,11 +184,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                         if (!isRead) const CircleAvatar(radius: 4, backgroundColor: AppColors.green),
                       ]),
                       const SizedBox(height: 4),
-                      Text(item['message']?.toString() ?? '', style: const TextStyle(color: AppColors.muted, height: 1.35)),
+                      Text(item['message']?.toString() ?? '', style: TextStyle(color: colors.onSurfaceVariant, height: 1.35)),
                       const SizedBox(height: 7),
-                      Text(item['created_at_human']?.toString() ?? item['created_at']?.toString() ?? '', style: const TextStyle(color: AppColors.muted, fontSize: 11)),
+                      Text(item['created_at_human']?.toString() ?? item['created_at']?.toString() ?? '', style: TextStyle(color: colors.onSurfaceVariant, fontSize: 11)),
                     ])),
-                    IconButton(onPressed: () => _delete(item), icon: const Icon(Icons.delete_outline_rounded, size: 20), color: AppColors.muted),
+                    IconButton(onPressed: () => _delete(item), icon: const Icon(Icons.delete_outline_rounded, size: 20), color: colors.onSurfaceVariant),
                   ]),
                 ),
               );

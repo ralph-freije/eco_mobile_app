@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/theme/app_theme.dart';
-
 class ErrorState extends StatelessWidget {
   const ErrorState({required this.message, required this.onRetry, super.key});
 
@@ -16,7 +14,11 @@ class ErrorState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.cloud_off_rounded, color: AppColors.danger, size: 40),
+            Icon(
+              Icons.cloud_off_rounded,
+              color: Theme.of(context).colorScheme.error,
+              size: 40,
+            ),
             const SizedBox(height: 12),
             Text(message, textAlign: TextAlign.center),
             const SizedBox(height: 14),

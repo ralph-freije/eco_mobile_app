@@ -11,6 +11,7 @@ import '../../../core/theme/app_theme.dart';
 import '../../../shared/widgets/error_state.dart';
 import '../../../shared/widgets/loading_state.dart';
 import '../../../shared/widgets/rounded_card.dart';
+import '../../../shared/widgets/theme_mode_selector.dart';
 import '../../../shared/widgets/user_avatar.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -153,6 +154,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ])),
             if (_saving) const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white)),
           ]),
+        ),
+        const SizedBox(height: 20),
+        Text('Appearance', style: Theme.of(context).textTheme.titleMedium),
+        const SizedBox(height: 10),
+        RoundedCard(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Choose how EcoTrack looks on this device.',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+              const SizedBox(height: 16),
+              const SizedBox(
+                width: double.infinity,
+                child: ThemeModeSelector(),
+              ),
+            ],
+          ),
         ),
         const SizedBox(height: 20),
         Text('Preferences', style: Theme.of(context).textTheme.titleMedium),

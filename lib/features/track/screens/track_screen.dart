@@ -324,6 +324,7 @@ class _RouteMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return RoundedCard(
       padding: EdgeInsets.zero,
       child: ClipRRect(
@@ -392,12 +393,12 @@ class _RouteMap extends StatelessWidget {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.88),
+                    color: colors.surface.withValues(alpha: 0.9),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: const Text(
+                  child: Text(
                     '© OpenStreetMap contributors',
-                    style: TextStyle(fontSize: 9, color: AppColors.navy),
+                    style: TextStyle(fontSize: 9, color: colors.onSurface),
                   ),
                 ),
               ),
@@ -407,7 +408,7 @@ class _RouteMap extends StatelessWidget {
                 ),
               if (isLoading)
                 ColoredBox(
-                  color: Colors.white.withValues(alpha: 0.72),
+                  color: colors.surface.withValues(alpha: 0.72),
                   child: const Center(child: CircularProgressIndicator()),
                 ),
             ],
@@ -426,9 +427,10 @@ class _MapMarker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colors.surface,
         shape: BoxShape.circle,
         boxShadow: const [
           BoxShadow(color: Color(0x33000000), blurRadius: 8),
@@ -445,25 +447,26 @@ class _MapHint extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Container(
       margin: const EdgeInsets.all(28),
       padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.92),
+        color: colors.surface.withValues(alpha: 0.94),
         borderRadius: BorderRadius.circular(16),
         boxShadow: const [
           BoxShadow(color: Color(0x22092A2F), blurRadius: 18),
         ],
       ),
-      child: const Row(
+      child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.search_rounded, color: AppColors.greenDark),
-          SizedBox(width: 10),
+          Icon(Icons.search_rounded, color: colors.primary),
+          const SizedBox(width: 10),
           Flexible(
             child: Text(
               'Enter both locations to draw the route.',
-              style: TextStyle(color: AppColors.navy),
+              style: TextStyle(color: colors.onSurface),
             ),
           ),
         ],
@@ -485,8 +488,9 @@ class _RouteSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return RoundedCard(
-      color: AppColors.mint,
+      color: colors.primaryContainer,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

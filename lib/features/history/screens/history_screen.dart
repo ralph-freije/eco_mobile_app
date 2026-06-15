@@ -48,6 +48,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
   void _showDetails(Map<String, dynamic> item) {
+    final colors = Theme.of(context).colorScheme;
     final category = _category(item);
     final data = item['activity_data'] is Map
         ? Map<String, dynamic>.from(item['activity_data'] as Map)
@@ -80,13 +81,13 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: AppColors.mint,
+                  color: colors.primaryContainer,
                   borderRadius: BorderRadius.circular(18),
                 ),
                 child: Text(
                   '${carbon.toStringAsFixed(2)} kg CO2e',
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        color: AppColors.greenDark,
+                        color: colors.onPrimaryContainer,
                       ),
                 ),
               ),

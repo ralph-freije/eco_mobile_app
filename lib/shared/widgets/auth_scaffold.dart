@@ -11,8 +11,9 @@ class AuthScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
-      backgroundColor: AppColors.navy,
+      backgroundColor: isDark ? AppColors.darkBackground : AppColors.navy,
       body: Stack(
         children: [
           const Positioned(
@@ -69,13 +70,14 @@ class AuthHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Column(
       children: [
         Container(
           width: 58,
           height: 58,
           decoration: BoxDecoration(
-            color: AppColors.mint,
+            color: colors.primaryContainer,
             borderRadius: BorderRadius.circular(18),
           ),
           child: const Icon(Icons.eco_rounded, color: AppColors.green, size: 32),
@@ -86,7 +88,7 @@ class AuthHeader extends StatelessWidget {
         Text(
           subtitle,
           textAlign: TextAlign.center,
-          style: const TextStyle(color: AppColors.muted, height: 1.45),
+          style: TextStyle(color: colors.onSurfaceVariant, height: 1.45),
         ),
       ],
     );
@@ -101,7 +103,9 @@ class AuthMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = isSuccess ? AppColors.greenDark : AppColors.danger;
+    final color = isSuccess
+        ? Theme.of(context).colorScheme.primary
+        : Theme.of(context).colorScheme.error;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(13),

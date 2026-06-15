@@ -123,7 +123,7 @@ class ApiClient {
         ApiConstants.googleMobile,
         data: {
           'id_token': idToken,
-          if (accessToken != null) 'access_token': accessToken,
+          'access_token': ?accessToken,
         },
       );
 

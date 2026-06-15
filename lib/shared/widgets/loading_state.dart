@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/theme/app_theme.dart';
-
 class LoadingState extends StatelessWidget {
   const LoadingState({this.label = 'Loading...', super.key});
 
@@ -15,9 +13,14 @@ class LoadingState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const CircularProgressIndicator(color: AppColors.green),
+            const CircularProgressIndicator(),
             const SizedBox(height: 14),
-            Text(label, style: const TextStyle(color: AppColors.muted)),
+            Text(
+              label,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+            ),
           ],
         ),
       ),

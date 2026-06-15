@@ -15,6 +15,7 @@ class EcoTrackLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = compact ? 46.0 : 62.0;
+    final colors = Theme.of(context).colorScheme;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -48,7 +49,7 @@ class EcoTrackLogo extends StatelessWidget {
             Text(
               'EcoTrack',
               style: TextStyle(
-                color: light ? Colors.white : AppColors.navy,
+                color: light ? Colors.white : colors.onSurface,
                 fontSize: compact ? 19 : 23,
                 fontWeight: FontWeight.w800,
                 letterSpacing: -0.6,
@@ -57,7 +58,7 @@ class EcoTrackLogo extends StatelessWidget {
             Text(
               'Carbon Tracking',
               style: TextStyle(
-                color: light ? Colors.white70 : AppColors.muted,
+                color: light ? Colors.white70 : colors.onSurfaceVariant,
                 fontSize: compact ? 10 : 11,
                 fontWeight: FontWeight.w600,
               ),

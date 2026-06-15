@@ -16,6 +16,7 @@ class CarbonTrendChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     final values = trend.map((item) => _number(item['carbon'])).toList();
     final hasData = values.any((value) => value > 0);
     final maxValue = values.fold<double>(
@@ -53,7 +54,7 @@ class CarbonTrendChart extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(9),
                 decoration: BoxDecoration(
-                  color: AppColors.mint,
+                  color: colors.primaryContainer,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: const Icon(
@@ -78,8 +79,8 @@ class CarbonTrendChart extends StatelessWidget {
                       gridData: FlGridData(
                         drawVerticalLine: false,
                         horizontalInterval: yInterval,
-                        getDrawingHorizontalLine: (value) => const FlLine(
-                          color: AppColors.border,
+                        getDrawingHorizontalLine: (value) => FlLine(
+                          color: colors.outlineVariant,
                           strokeWidth: 1,
                         ),
                       ),
@@ -215,6 +216,7 @@ class CategoryDonutChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     final entries = ['transport', 'diet', 'energy', 'shopping']
         .map((name) => MapEntry(name, _number(categories[name])))
         .toList();
@@ -274,7 +276,7 @@ class CategoryDonutChart extends StatelessWidget {
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge
-                                ?.copyWith(color: AppColors.navy),
+                                ?.copyWith(color: colors.onSurface),
                           ),
                           const Text(
                             'kg CO2e',

@@ -209,6 +209,7 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
   }
 
   Widget _buildMessages() {
+    final colors = Theme.of(context).colorScheme;
     if (_messages == null && _error == null) {
       return const LoadingState(label: 'Loading conversation...');
     }
@@ -255,7 +256,7 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
                   margin: const EdgeInsets.only(bottom: 9),
                   padding: const EdgeInsets.fromLTRB(15, 11, 15, 8),
                   decoration: BoxDecoration(
-                    color: mine ? AppColors.green : Colors.white,
+                    color: mine ? AppColors.green : colors.surfaceContainerHigh,
                     borderRadius: BorderRadius.only(
                       topLeft: const Radius.circular(18),
                       topRight: const Radius.circular(18),
@@ -271,8 +272,8 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         user['name']?.toString() ?? 'User',
-                        style: const TextStyle(
-                          color: AppColors.greenDark,
+                        style: TextStyle(
+                          color: colors.primary,
                           fontSize: 11,
                           fontWeight: FontWeight.w800,
                         ),
@@ -281,7 +282,7 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
                   Text(
                     message['message']?.toString() ?? '',
                     style: TextStyle(
-                      color: mine ? Colors.white : AppColors.text,
+                      color: mine ? Colors.white : colors.onSurface,
                       height: 1.35,
                     ),
                   ),
@@ -292,7 +293,7 @@ class _PrivateChatScreenState extends State<PrivateChatScreen> {
                       Text(
                         message['created_at']?.toString() ?? '',
                         style: TextStyle(
-                          color: mine ? Colors.white70 : AppColors.muted,
+                          color: mine ? Colors.white70 : colors.onSurfaceVariant,
                           fontSize: 9,
                         ),
                       ),
